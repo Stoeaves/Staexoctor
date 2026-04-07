@@ -1,6 +1,30 @@
 <template>
   <AppLayout>
     <div class="panel">
+      <div class="panel-title">界面主题</div>
+      <div class="panel-desc">选择 Staexoctor 的显示主题。</div>
+
+      <div class="form-group">
+        <label class="label">主题模式</label>
+        <select
+          v-model="themeMode"
+          class="select"
+        >
+          <option value="system">跟随系统（默认）</option>
+          <option value="light">亮色</option>
+          <option value="dark">暗色</option>
+        </select>
+      </div>
+
+      <button
+        class="btn"
+        @click="saveTheme"
+      >
+        保存主题设置
+      </button>
+    </div>
+
+    <div class="panel">
       <div class="panel-title">修改密码</div>
       <div class="panel-desc">请输入原密码，并设置新的管理员密码。修改成功后需要重新登录。</div>
 
@@ -77,15 +101,17 @@
 </template>
 
 <script setup>
-  import { computed, reactive } from 'vue';
+  import { computed, reactive, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import AppLayout from '../components/AppLayout.vue';
   import { api } from '../api/request';
   import { clearToken } from '../utils/auth';
-  import { appStore, resetSiteCaches } from '../store/app';
+  import { appStore, resetSiteCaches, setThemeMode } from '../store/app';
   import { getPasswordStrength, showError, showSuccess } from '../utils/helpers';
+  import { applyTheme, saveThemeMode } from '../utils/theme';
 
   const router = useRouter();
+  const themeMode = ref(appStore.themeMode || 'system');
 
   const form = reactive({
     oldPassword: '',
@@ -100,6 +126,13 @@
   const strengthText = computed(() => strengthInfo.value.text);
   const strengthColor = computed(() => strengthInfo.value.color);
   const strengthPercent = computed(() => strengthInfo.value.percent);
+
+  function saveTheme() {
+    saveThemeMode(themeMode.value);
+    applyTheme(themeMode.value);
+    setThemeMode(themeMode.value);
+    showSuccess('主题设置已保存');
+  }
 
   async function submit() {
     if (!form.oldPassword || !form.newPassword || !form.confirmPassword) {

@@ -7,12 +7,21 @@
       content="width=device-width, initial-scale=1.0"
     />
     <title>Staexoctor</title>
+
+    <script>
+      (() => {
+        try {
+          const mode = localStorage.getItem('staexoctor_theme_mode') || 'system';
+          const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const finalTheme = mode === 'dark' ? 'dark' : mode === 'light' ? 'light' : systemDark ? 'dark' : 'light';
+
+          document.documentElement.setAttribute('data-theme', finalTheme);
+          document.documentElement.setAttribute('data-theme-mode', mode);
+        } catch (e) {}
+      })();
+    </script>
+
     <script src="https://unpkg.com/coco-message@2.0.3/coco-message.min.js"></script>
-    <link
-      rel="shortcut icon"
-      href="/favicon.ico"
-      type="image/x-icon"
-    />
   </head>
   <body>
     <div id="app"></div>

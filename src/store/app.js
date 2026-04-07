@@ -7,6 +7,7 @@ export const appStore = reactive({
   articles: [],
   images: [],
   draftVersion: 0,
+  themeMode: localStorage.getItem('staexoctor_theme_mode') || 'system',
   listLoading: {
     articles: false,
     images: false,
@@ -72,4 +73,8 @@ export function openRouteLeaveConfirm(target, message = '当前内容尚未保�
 export function closeRouteLeaveConfirm() {
   appStore.routeLeaveConfirm.visible = false;
   appStore.routeLeaveConfirm.target = null;
+}
+
+export function setThemeMode(mode) {
+  appStore.themeMode = mode;
 }
