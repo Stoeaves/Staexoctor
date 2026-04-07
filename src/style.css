@@ -979,12 +979,12 @@ img {
   background: transparent;
 }
 
-:root[data-theme='dark'] .ͼo {
+:root[data-theme='dark'] .cm-editor {
   background: var(--bg);
   color: var(--text);
 }
 
-:root[data-theme='dark'] .cm-line .ͼ11 {
+:root[data-theme='dark'] .cm-line span {
   color: var(--text);
 }
 
