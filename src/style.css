@@ -733,7 +733,6 @@ img {
 :root[data-theme='dark'] .staexoctor-md-editor .md-editor-toolbar {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)), #111827 !important;
   border-bottom: 1px solid #243244 !important;
-  backdrop-filter: blur(8px);
 }
 
 :root[data-theme='dark'] .staexoctor-md-editor .md-editor-toolbar-wrapper {
@@ -767,6 +766,14 @@ img {
   background: rgba(96, 165, 250, 0.22) !important;
   color: #bfdbfe !important;
   box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.26);
+}
+
+:root[data-theme='dark'] .staexoctor-md-editor .md-editor-dropdown {
+  background: var(--bg);
+}
+
+:root[data-theme='dark'] .staexoctor-md-editor .md-editor-dropdown .md-editor-menu-item:hover {
+  background: #4b6078 !important;
 }
 
 :root[data-theme='dark'] .staexoctor-md-editor .md-editor-content {
