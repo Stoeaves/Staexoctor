@@ -515,7 +515,7 @@ async function handleRequest(request, env) {
     const site = await getSiteById(env, siteId);
     if (!site) return json(env, { success: false, message: '站点不存在' }, 404, request);
 
-    const finalPath = `${trimSlash(site.imageDir)}/${fileName}`;
+    const finalPath = trimSlash(`${site.imageDir}/${fileName}`);
 
     const result = await githubPutBase64Content({
       owner: site.imageRepoOwner,

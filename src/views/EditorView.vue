@@ -115,6 +115,7 @@
         <MarkdownEditor
           ref="editorRef"
           v-model="content"
+          :is-paste-upload="pasteUploading"
           @upload-images="handleEditorUploadImages"
         />
       </div>
@@ -438,14 +439,21 @@
   }
 
   async function handlePaste(event) {
-    if (!appStore.currentSiteId || pasteUploading.value) return;
+    pasteUploading.value = true;
+    if (!appStore.currentSiteId || pasteUploading.value) {
+      pasteUploading.value = false;
+      return;
+    }
 
     const items = Array.from(event.clipboardData?.items || []);
     const imageItems = items.filter((item) => item.type?.startsWith('image/'));
-    if (!imageItems.length) return;
+    if (!imageItems.length) {
+      pasteUploading.value = false;
+      return;
+    }
 
     event.preventDefault();
-    pasteUploading.value = true;
+
     showInfo(`检测到 ${imageItems.length} 张剪贴板图片，正在上传...`);
 
     try {

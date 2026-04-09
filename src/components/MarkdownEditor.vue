@@ -61,6 +61,10 @@
       type: String,
       default: '',
     },
+    isPasteUpload: {
+      type: Boolean,
+      default: false,
+    },
   });
 
   const emit = defineEmits(['update:modelValue', 'upload-images']);
@@ -169,6 +173,7 @@
   }
 
   async function handleUploadImg(files, callback) {
+    if (props.isPasteUpload) return;
     try {
       const list = Array.from(files || []);
       if (!list.length) return;
